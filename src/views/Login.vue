@@ -2,7 +2,7 @@
     <div style="text-align:center;margin-top:-80px;">
         <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px"
                  class="demo-ruleForm login-container" style="text-align:right">
-            <h1 class="title">在校生登录</h1>
+            <h1 class="title">服装匹配系统登录</h1>
             <el-form-item prop="account">
                 <el-input type="text" v-model="ruleForm2.account" placeholder="账号" autofocus
                           @keyup.enter.native="handleSubmit2">
@@ -21,24 +21,7 @@
             </el-form-item>
         </el-form>
 
-        <p style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
-            <img href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33011802001296"
-                 src="../assets/ba.png" style="float:left;"/>
-            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33011802001296"
-               style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;"
-               target="_blank">
-                浙公网安备 33011802001296号
-            </a>
-            <a style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;"
-               target="_blank">
-                &emsp;&emsp;©2018 Zhang Chong All Rights Reserved&emsp;&emsp;
-            </a>
-            <a href="http://www.miitbeian.gov.cn/"
-               style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;"
-               target="_blank">
-                浙ICP备17043890号
-            </a>
-        </p>
+
     </div>
 </template>
 
@@ -114,7 +97,7 @@
                                     type: 'error'
                                 });
                             } else {*/
-                                sessionStorage.setItem('user', 'test');
+                                sessionStorage.setItem('user', 'admin');
                                 sessionStorage.setItem('date', util.formatDate.format(new Date(), 'yyyy-MM-dd'));
                                 let tmp = 0;
                                 if (this.checked) {
