@@ -15,7 +15,7 @@
                             src="../assets/logo.png"/> {{sysUserName}}</span>
                     <!--:src="this.sysUserAvatar"/> {{sysUserName}}</span>-->
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item @click.native="records">服装匹配</el-dropdown-item>
+                        <el-dropdown-item @click.native="records">相似匹配</el-dropdown-item>
                         <el-dropdown-item @click.native="settings">用户设置</el-dropdown-item>
                         <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
@@ -96,7 +96,7 @@
     export default {
         data() {
             return {
-                sysName: '服装匹配系统',
+                sysName: '女裤廓形相似匹配系统',
                 collapsed: false,
                 sysUserName: '',
                 sysUserAvatar: '',

@@ -1,9 +1,7 @@
 <template>
     <section>
-
-
         <el-col style="display: inline-block;text-align: center">
-            <div style="margin-top: 50px;width: 50%;float: left">
+            <div style="margin-top: 50px;width: 25%;float: left">
                 <div align="center" style="color:#97a8be;margin-bottom: 5px">目标图像(仅支持.jpg文件)</div>
                 <el-form :inline="true">
                     <!--图片上传-->
@@ -18,7 +16,7 @@
                         </el-upload>
                         <el-select v-model="kuType" size="small" style="width: 140px" placeholder="请选择裤子类别" clearable
                                    @change="currentType">
-                            <el-option label="哈伦裤" value="hlk"></el-option>
+                            <el-option label="吊裆裤" value="hlk"></el-option>
                             <el-option label="阔腿裤" value="ktk"></el-option>
                             <el-option label="喇叭裤" value="lbk"></el-option>
                             <el-option label="小脚裤" value="xjk"></el-option>
@@ -28,34 +26,38 @@
                     </el-form-item>
                 </el-form>
             </div>
-            <div style="float: right;width: 50%;margin-top:50px;">
+            <div style="float: right;width: 75%;margin-top:50px;">
                 <!--显示-->
-                <el-col>
-                    <!--<div v-for="(imageInfo,index) in images">-->
-                    <div align="center" style="color:#97a8be;margin-bottom: 5px">
-                        相似度：{{images[this.imageIndex].hammingDistance}}
-                    </div>
-                    <el-upload
-                            class="avatar-uploader"
-                            action=""
-                            disabled="true"
-                            :show-file-list="false">
-                        <img v-if="images[this.imageIndex].imgUrl" :src="images[this.imageIndex].imgUrl" class="avatar">
-                        <i v-else class="el-icon-picture avatar-uploader-icon"></i>
-                    </el-upload>
-                    <!--<img v-if="images[this.imageIndex].imgUrl" :src="images[this.imageIndex].imgUrl" class="avatar">
-                    <i v-else class="el-icon-picture avatar-uploader-icon"></i>-->
-                    <div>
-                        <el-button-group style="vertical-align: bottom;margin-top: 10px;">
-                            <el-button @click='change(index,"pre")'><i
-                                    class="el-icon-arrow-left el-icon-arrow-left"></i>上一张
-                            </el-button>
-                            <el-button @click='change(index,"next")'>下一张<i
-                                    class="el-icon-arrow-right el-icon--right"></i></el-button>
-                        </el-button-group>
-                    </div>
-                    <!--</div>-->
-                </el-col>
+                <el-row :gutter="20" style="color:#97a8be;margin-bottom: 5px;">
+                    <el-col :span="8">相似度：{{images[this.preImageIndex].hammingDistance}}</el-col>
+                    <el-col :span="8">相似度：{{images[this.onImageIndex].hammingDistance}}</el-col>
+                    <el-col :span="8">相似度：{{images[this.postImageIndex].hammingDistance}}</el-col>
+                </el-row>
+
+                <el-row :gutter="20" style="color:#97a8be;margin-bottom: 5px;" align="center">
+                    <el-col :span="8" align="center"><img v-if="images[this.preImageIndex].imgUrl"
+                                                          :src="images[this.preImageIndex].imgUrl"
+                                                          class="avatar">
+                        <i v-else class="el-icon-picture avatar-uploader-icon"></i></el-col>
+                    <el-col :span="8" align="center"><img v-if="images[this.onImageIndex].imgUrl"
+                                                          :src="images[this.onImageIndex].imgUrl"
+                                                          class="avatar">
+                        <i v-else class="el-icon-picture avatar-uploader-icon"></i></el-col>
+                    <el-col :span="8" align="center"><img v-if="images[this.postImageIndex].imgUrl"
+                                                          :src="images[this.postImageIndex].imgUrl"
+                                                          class="avatar">
+                        <i v-else class="el-icon-picture avatar-uploader-icon"></i></el-col>
+                </el-row>
+
+                <div>
+                    <el-button-group style="vertical-align: bottom;margin-top: 10px;">
+                        <el-button @click='change(index,"pre")'><i
+                                class="el-icon-arrow-left el-icon-arrow-left"></i>上一页
+                        </el-button>
+                        <el-button @click='change(index,"next")'>下一页<i
+                                class="el-icon-arrow-right el-icon--right"></i></el-button>
+                    </el-button-group>
+                </div>
             </div>
         </el-col>
 
@@ -82,6 +84,9 @@
                 ],
                 mbtx: '',
                 imageIndex: 0,
+                preImageIndex: 0,
+                onImageIndex: 0,
+                postImageIndex: 0,
                 //编辑界面数据
                 editForm: {
                     id: 0,
@@ -112,6 +117,9 @@
                 })
             },
             getKus: function () {
+                this.preImageIndex = 3 * this.imageIndex;
+                this.onImageIndex = 3 * this.imageIndex + 1;
+                this.postImageIndex = 3 * this.imageIndex + 2;
                 var kuType = this.kuType;
                 if (kuType != "") {
                     let loadingInstance = Loading.service({fullscreen: true, text: "搜索中"});
@@ -163,7 +171,7 @@
                     this.imageIndex--;
                 }
                 if (type === "next") {
-                    if (this.imageIndex > 298) {
+                    if (this.imageIndex > 98) {
                         this.$message({
                             message: '当前已是图库最后一张',
                             type: 'warning'
@@ -172,6 +180,9 @@
                     }
                     this.imageIndex++;
                 }
+                this.preImageIndex = 3 * this.imageIndex;
+                this.onImageIndex = 3 * this.imageIndex + 1;
+                this.postImageIndex = 3 * this.imageIndex + 2;
             }
 
         }
@@ -196,15 +207,50 @@
     .avatar-uploader-icon {
         font-size: 28px;
         color: #8c939d;
-        width: 300px;
-        height: 300px;
-        line-height: 300px;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
         text-align: center;
     }
 
     .avatar {
-        width: auto;
-        height: 300px;
+        width: 200px;
+        /*height: 300px;*/
         display: block;
+    }
+
+    .el-row {
+        margin-bottom: 20px;
+
+    &
+    :last-child {
+        margin-bottom: 0;
+    }
+
+    }
+    .el-col {
+        border-radius: 4px;
+    }
+
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+
+    .bg-purple {
+        background: #d3dce6;
+    }
+
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+
+    .row-bg {
+        padding: 10px 0;
+        background-color: #f9fafc;
     }
 </style>

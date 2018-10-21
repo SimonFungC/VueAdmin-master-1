@@ -2,7 +2,7 @@
     <div style="text-align:center;margin-top:-80px;">
         <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px"
                  class="demo-ruleForm login-container" style="text-align:right">
-            <h1 class="title">服装匹配系统登录</h1>
+            <h1 class="title">女裤廓形相似匹配系统登录</h1>
             <el-form-item prop="account">
                 <el-input type="text" v-model="ruleForm2.account" placeholder="账号" autofocus
                           @keyup.enter.native="handleSubmit2">

@@ -24,7 +24,7 @@ let routes = [
         iconCls: 'el-icon-menu',//图标样式class
         children: [
             // { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: '服装匹配' },
+            { path: '/table', component: Table, name: '相似匹配' },
             { path: '/form', component: Form, name: '用户设置'},
             // { path: '/user', component: user, name: '列表' , hidden: true },
         ]
