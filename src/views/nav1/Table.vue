@@ -14,8 +14,7 @@
                             <img v-if="this.mbtx" :src="this.mbtx" class="avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
-                        <el-select v-model="kuType" size="small" style="width: 140px" placeholder="请选择裤子类别" clearable
-                                   @change="currentType">
+                        <el-select v-model="kuType" size="small" style="width: 140px" placeholder="请选择裤子类别" @change="currentType">
                             <el-option label="吊裆裤" value="hlk"></el-option>
                             <el-option label="阔腿裤" value="ktk"></el-option>
                             <el-option label="喇叭裤" value="lbk"></el-option>
@@ -105,23 +104,21 @@
             },
             currentType: function () {
                 var type = this.kuType;
-                if (type == "") {
-                    type = "hlk";
-                }
                 changeName(type).then((res) => {
                     if (res.status === 200) {
-                        this.mbtx = require("@/assets/img/mbtx/" + this.kuType + ".jpg");
+                        this.mbtx = require("E:\\IDEA-1.6\\img\\mbtx\\" + this.kuType + ".jpg");
                     }
                 }).catch(error => {
                     this.listLoading = false;
                 })
             },
             getKus: function () {
+                this.imageIndex = 0;
                 this.preImageIndex = 3 * this.imageIndex;
                 this.onImageIndex = 3 * this.imageIndex + 1;
                 this.postImageIndex = 3 * this.imageIndex + 2;
                 var kuType = this.kuType;
-                if (kuType != "") {
+                if (kuType !== "") {
                     let loadingInstance = Loading.service({fullscreen: true, text: "搜索中"});
                     getKus(kuType).then((res) => {
                         console.log(res.data);
@@ -140,6 +137,7 @@
                             }
                         }
                     }).catch(error => {
+                        loadingInstance.close();
                         this.$message({
                             message: '查询失败',
                             type: 'error'
